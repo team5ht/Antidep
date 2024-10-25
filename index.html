@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>С днем рождения, Аня!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ff9a9e;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
+            background-size: 600% 600%;
+            animation: gradient 16s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 4em;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+            to { text-shadow: 0 0 20px rgba(255,255,255,1); }
+        }
+
+        .balloons {
+            position: absolute;
+            bottom: -150px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 100px;
+            height: 150px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5), transparent 70%);
+            border-radius: 50% 50% 50% 50%;
+            animation: floatUp 10s linear infinite;
+        }
+
+        .balloon:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            background-color: #ff9a9e;
+        }
+        .balloon:nth-child(2) {
+            left: 30%;
+            animation-delay: 2s;
+            background-color: #fad0c4;
+        }
+        .balloon:nth-child(3) {
+            left: 50%;
+            animation-delay: 4s;
+            background-color: #fcb69f;
+        }
+        .balloon:nth-child(4) {
+            left: 70%;
+            animation-delay: 6s;
+            background-color: #ffecd2;
+        }
+        .balloon:nth-child(5) {
+            left: 90%;
+            animation-delay: 8s;
+            background-color: #f6d365;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+
+        /* Конфетти */
+        .confetti {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 20px;
+            background: #ff9a9e;
+            opacity: 0;
+            transform: scale(0);
+            border-radius: 50%;
+            animation: explode 3s linear forwards;
+        }
+
+        .confetti:nth-child(odd) {
+            background: #fad0c4;
+        }
+
+        .confetti:nth-child(even) {
+            background: #fcb69f;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(calc(-50% + (30vw * var(--x))), calc(-50% + (40vh * var(--y)))) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + (40vw * var(--x))), calc(-50% + (50vh * var(--y)))) scale(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>С днем рождения, Аня!</h1>
+    <div class="balloons">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+    </div>
+    
+    <script>
+        // Создание конфетти
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.setProperty('--x', (Math.random() - 0.5) * 2); // Случайное направление по оси X
+                confetti.style.setProperty('--y', (Math.random() - 0.5) * 2); // Случайное направление по оси Y
+                document.body.appendChild(confetti);
+
+                // Удаление конфетти после анимации
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Запуск конфетти через 1 секунду после загрузки страницы
+        setTimeout(createConfetti, 1000);
+    </script>
+</body>
+</html>
